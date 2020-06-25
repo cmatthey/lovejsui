@@ -42,7 +42,7 @@ class SearchBar extends Component {
           }}
           className="btn btn-primary btn-sm m-2"
         >
-          View2
+          View
         </div>
       </React.Fragment>
     );

@@ -16,15 +16,23 @@ class Report extends Component {
     },
   };
   handleSearch = async (screenName, displayName, day) => {
-    const data = await reportReq.getReport(screenName, displayName, day);
-    let tUser = this.state.tUser;
-    tUser.screenName = screenName;
-    tUser.displayName = displayName;
-    tUser.day = day;
-    tUser.data = data;
-    tUser.count = "error" in data ? 0 : data.length;
-    this.setState({ tUser });
-    console.log(this.state.tUser);
+    try {
+      let data = await reportReq.getReport(screenName, displayName, day);
+      data.map((x, i) => {
+        x.id = i;
+        return x;
+      });
+      let tUser = this.state.tUser;
+      tUser.screenName = screenName;
+      tUser.displayName = displayName;
+      tUser.day = day;
+      tUser.data = data;
+      tUser.count = "error" in data ? 0 : data.length;
+      this.setState({ tUser: tUser });
+      console.log(this.state.tUser);
+    } catch (error) {
+      console.log(error);
+    }
   };
   handleDownload = () => {
     console.log("Not yet implemented");
