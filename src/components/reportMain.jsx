@@ -10,21 +10,19 @@ class Report extends Component {
     tUser: {
       screeName: "",
       displayName: "",
+      day: null,
       data: [],
       count: 0,
     },
   };
-  handleSearch = async (screenName, displayName) => {
-    const data = await reportReq.getReport(
-      screenName,
-      displayName,
-      "2020-06-17T18:16:55.137Z"
-    );
+  handleSearch = async (screenName, displayName, day) => {
+    const data = await reportReq.getReport(screenName, displayName, day);
     let tUser = this.state.tUser;
     tUser.screenName = screenName;
     tUser.displayName = displayName;
+    tUser.day = day;
     tUser.data = data;
-    tUser.count = "error" in data ? 0 : data.lenth;
+    tUser.count = "error" in data ? 0 : data.length;
     this.setState({ tUser });
     console.log(this.state.tUser);
   };
